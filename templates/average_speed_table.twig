@@ -1,0 +1,16 @@
+<table>
+    <thead>
+        <th>trip</th>
+        <th>distance</th>
+        <th>measure interval</th>
+        <th>avg speed</th>
+    </thead>
+    {% for trip in trips %}
+        <tr>
+            <td>{{  trip.getName() }}</td>
+            <td>{{  trip.getDistance() }}</td>
+            <td>{{  trip.getMeasureInterval() }}</td>
+            <td>{{  trip.getAverageSpeed() }}</td>
+        </tr>
+    {% endfor %}
+</table>
