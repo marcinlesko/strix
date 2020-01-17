@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -36,18 +36,18 @@ class Measure
     }
 
     /**
-     * @return string
+     * @return float
      */
-    public function getDistance(): string
+    public function getDistance(): float
     {
-        return $this->distance;
+        return (float) $this->distance;
     }
 
     /**
-     * @param string $distance
+     * @param float $distance
      * @return $this
      */
-    public function setDistance(string $distance): self
+    public function setDistance(float $distance): self
     {
         $this->distance = $distance;
 

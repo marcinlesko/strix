@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace App\Utils;
 
 /**
@@ -19,6 +19,6 @@ class AverageSpeedCalculator
             $speed = floor(3600 * ($distances[$i] - $distances[$i - 1]) / $measureInterval);
             $averageSpeed = max($averageSpeed, $speed);
         }
-        return $averageSpeed;
+        return (int) $averageSpeed;
     }
 }
