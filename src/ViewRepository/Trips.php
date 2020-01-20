@@ -2,9 +2,8 @@
 namespace App\ViewRepository;
 
 use App\Entity\Trip;
-use App\Repository\TripRepository;
-use App\Utils\AverageSpeedCalculator;
 use App\View\TripView;
+use App\ViewFactory\TripViewFactory;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -19,39 +18,31 @@ class Trips
     private $entityManager;
 
     /**
-     * @var AverageSpeedCalculator
+     * @var TripViewFactory
      */
-    private $averageSpeedCalculator;
+    private $tripViewFactory;
 
     /**
      * @param EntityManagerInterface $entityManager
-     * @param AverageSpeedCalculator $averageSpeedCalculator
+     * @param TripViewFactory $tripViewFactory
      */
     public function __construct(
         EntityManagerInterface $entityManager,
-        AverageSpeedCalculator $averageSpeedCalculator
+        TripViewFactory $tripViewFactory
     ) {
         $this->entityManager = $entityManager;
-        $this->averageSpeedCalculator = $averageSpeedCalculator;
+        $this->tripViewFactory = $tripViewFactory;
     }
 
     /**
      * @return TripView[]
      */
-    public function getAll()
+    public function getAll(): array
     {
         $trips = $this->entityManager->getRepository(Trip::class)->findAll();
 
         return array_map(function (Trip $trip)  {
-            return new TripView(
-                $trip->getName(),
-                $trip->getMeasureInterval(),
-                max($trip->getMeasuresDistances()),
-                $this->averageSpeedCalculator->calculate(
-                    $trip->getMeasureInterval(),
-                    $trip->getMeasuresDistances()
-                )
-            );
+            return $this->tripViewFactory->create($trip);
         }, $trips);
     }
 }

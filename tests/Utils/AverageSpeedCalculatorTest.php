@@ -4,7 +4,7 @@ namespace App\Tests\Utils;
 use App\Utils\AverageSpeedCalculator;
 use PHPUnit\Framework\TestCase;
 
-class CalculatorTest extends TestCase
+class AverageSpeedCalculatorTest extends TestCase
 {
     public function testCalculate()
     {
